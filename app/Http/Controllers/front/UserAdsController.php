@@ -135,16 +135,20 @@ class UserAdsController extends Controller
     public function account_page()
     {
         try {
+            
             $user = auth()->user();
             $userAds = $user
                 ? $user->ads()->with(['places', 'category', 'subcategory'])->latest()->get()
                 : collect();
+
+                
             return Inertia::render(
                 'front/account/index',
                 [
                     'userAds' => $userAds,
                 ]
             );
+         
         } catch (\Throwable $th) {
             return Inertia::render('front/Error404');
         }

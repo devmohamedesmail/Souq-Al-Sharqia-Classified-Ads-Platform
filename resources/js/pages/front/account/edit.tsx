@@ -9,6 +9,8 @@ import { useTranslation } from 'react-i18next'
 import CustomMultiSelect from '@/components/custom/CustomMultiSelect'
 import { FaTimes, FaBullhorn } from 'react-icons/fa'
 import Custommodal from '@/components/custom/Custommodal'
+import CustomInput from '@/components/custom/CustomInput'
+import CustomtextArea from '@/components/custom/CustomtextArea'
 
 function EditAd({ ad, places, categories, subcategories }: any) {
 
@@ -32,7 +34,7 @@ function EditAd({ ad, places, categories, subcategories }: any) {
     };
 
 
-    const initialImages = ad.images ? JSON.parse(ad.images) : [];
+    // const initialImages = ad.images ? JSON.parse(ad.images) : [];
 
     const { data, setData, post, processing, errors, reset } = useForm<AdForm>({
         name: ad.name || '',
@@ -42,7 +44,7 @@ function EditAd({ ad, places, categories, subcategories }: any) {
         title: ad.title || '',
         description: ad.description || '',
         type: ad.type || '',
-        images: initialImages,
+        images: ad.images,
         // places: initialPlaces,
 
         places: ad.places ? ad.places.map((p: any) => p.id) : [], category_id: ad.category_id || null,
@@ -51,7 +53,7 @@ function EditAd({ ad, places, categories, subcategories }: any) {
 
     // For preview: show both existing and new images
     const [previewImages, setPreviewImages] = useState<string[]>(
-        initialImages.length ? initialImages : []
+        ad.images.length ? ad.images : []
     );
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,7 +78,7 @@ function EditAd({ ad, places, categories, subcategories }: any) {
                 reset();
                 setPreviewImages([]);
                 if (modalRef.current) {
-                     modalRef.current.close(); 
+                    modalRef.current.close();
                     modalRef.current.showModal();
                 }
             },
@@ -112,51 +114,113 @@ function EditAd({ ad, places, categories, subcategories }: any) {
                 >
                     <h2 className="text-2xl font-bold text-center text-main mb-4 tracking-wide">{t('edit-ad')}</h2>
                     <div className="grid grid-cols-1 gap-4">
-                        <CustomAnimatedInput
+                        {/* <CustomAnimatedInput
                             label={t('name')}
                             name="name"
                             value={data.name}
                             onChange={e => setData('name', e.target.value)}
                             error={errors.name}
+                        /> */}
+
+                        <CustomInput
+                            label={t('name')}
+                            name="name"
+                            value={data.name}
+                            onChange={(e: any) => setData('name', e.target.value)}
+                            error={errors.name}
                         />
-                        <CustomAnimatedInput
+
+
+
+
+                        {/* <CustomAnimatedInput
                             label={t('email')}
                             name="email"
                             value={data.email}
                             onChange={e => setData('email', e.target.value)}
                             error={errors.email}
+                        /> */}
+
+                        <CustomInput
+                            label={t('email')}
+                            name="email"
+                            value={data.email}
+                            onChange={(e: any) => setData('email', e.target.value)}
+                            error={errors.email}
                         />
-                        <CustomAnimatedInput
+
+
+                        {/* <CustomAnimatedInput
                             label={t('phone')}
                             name="phone"
                             value={data.phone}
                             onChange={e => setData('phone', e.target.value)}
                             error={errors.phone}
+                        /> */}
+
+                        <CustomInput
+                            label={t('phone')}
+                            name="phone"
+                            value={data.phone}
+                            onChange={(e: any) => setData('phone', e.target.value)}
+                            error={errors.phone}
                         />
-                        <CustomAnimatedInput
+
+
+
+
+
+                        {/* <CustomAnimatedInput
                             label={t('price')}
                             type='number'
                             name="price"
                             value={data.price}
                             onChange={e => setData('price', e.target.value)}
                             error={errors.price}
+                        /> */}
+
+                        <CustomInput
+                            label={t('price')}
+                            type='number'
+                            name="price"
+                            value={data.price}
+                            onChange={(e: any) => setData('price', e.target.value)}
+                            error={errors.price}
                         />
                     </div>
 
-                    <CustomAnimatedInput
+                    {/* <CustomAnimatedInput
                         label={t('ad-title')}
                         name="title"
                         value={data.title}
                         onChange={e => setData('title', e.target.value)}
                         error={errors.title}
+                    /> */}
+                    <CustomInput 
+                    label={t('ad-title')}
+                        name="title"
+                        value={data.title}
+                        onChange={(e: any) => setData('title', e.target.value)}
+                        error={errors.title}
                     />
-                    <textarea
+
+
+
+                    {/* <textarea
                         name="description"
                         placeholder={t('ad-description')}
                         value={data.description}
                         onChange={e => setData('description', e.target.value)}
                         className="w-full border rounded px-3 py-2 focus:outline-main"
                         rows={3}
+                    /> */}
+
+                    <CustomtextArea
+                        label={t('post_ad_form.ad-description')}
+                        name="description"
+                        placeholder={t('ad-description')}
+                        value={data.description}
+                        onChange={e => setData('description', e.target.value)}
                     />
 
                     <CustomMultiSelect
@@ -263,7 +327,7 @@ function EditAd({ ad, places, categories, subcategories }: any) {
                     </button>
                 </form>
                 <Custommodal modalname={modalRef} message={t('ad-updated-successfully')} />
-               
+
             </div>
 
             <Footer />

@@ -117,11 +117,6 @@ Route::controller(FrontController::class)->group(function () {
     
     Route::get('/show/ad/details/{slug}/{id}', 'show_ad_details')->name('show.ad.details');
     Route::get('/show/favourites/page', 'show_favourite_page')->name('show.favourites.page');
-
-
-    // account
-   
-
     // 404 Error Page
     Route::get('/404', 'notFound')->name('404');
 

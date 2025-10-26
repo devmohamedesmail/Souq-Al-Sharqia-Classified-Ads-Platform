@@ -30,6 +30,7 @@ Route::controller(ApiController::class)->group(function () {
     Route::get('/places', 'show_places')->name('api.places');
     Route::get('/places/categories/{place_id}', 'show_place_categories')->name('api.show_place_categories');
     Route::get('/places/ads/{place_id}', 'show_places_ads')->name('api.places.ads');
+    Route::get('/settings', 'show_settings')->name('api.settings');
 });
 
 

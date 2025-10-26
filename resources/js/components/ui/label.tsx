@@ -19,7 +19,7 @@ function Label({
       //   text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none peer-disabled:opacity-50`,
       //   className
       // )}
-      className={`text-xs block ${i18n.language === "en" ? "text-left" : "text-right arabic-font"}`}
+      className={`text-sm mb-1 block ${i18n.language === "en" ? "text-left" : "text-right arabic-font"}`}
       {...props}
     />
   )

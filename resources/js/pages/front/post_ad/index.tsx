@@ -9,6 +9,10 @@ import Footer from '@/components/front/Footer'
 import CustomMultiSelect from '@/components/custom/CustomMultiSelect'
 import { FaTimes, FaBullhorn } from 'react-icons/fa'
 import Custommodal from '@/components/custom/Custommodal'
+import CustomInput from '@/components/custom/CustomInput'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import CustomtextArea from '@/components/custom/CustomtextArea'
 
 function Add_ads({ places, categories, subcategories }: any) {
   const { t, i18n } = useTranslation();
@@ -95,7 +99,7 @@ function Add_ads({ places, categories, subcategories }: any) {
           className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-xl space-y-6 border border-main/10"
         >
           <h2 className="text-2xl font-bold text-center text-main mb-4 tracking-wide">{t('post_ad_form.add-new-ad')}</h2>
-          
+
           {/* Success Message */}
           {flash?.success && (
             <div className="mb-4 p-3 bg-green-100 border border-green-300 text-green-700 rounded-lg">
@@ -111,51 +115,119 @@ function Add_ads({ places, categories, subcategories }: any) {
           )}
 
           <div className="grid grid-cols-1 gap-4">
-            <CustomAnimatedInput
+            {/* <CustomAnimatedInput
               label={`${t('post_ad_form.name')} *`}
               name="name"
               value={data.name}
               onChange={e => setData('name', e.target.value)}
               error={errors.name}
+            /> */}
+
+
+            <CustomInput
+              type="text"
+              name="name"
+              value={data.name}
+              onChange={(e: any) => setData('name', e.target.value)}
+              className={`${errors.name ? 'border-red-500' : 'border-red-700'}`}
+              label={`${t('post_ad_form.name')} *`}
+              error={errors.name}
             />
-            <CustomAnimatedInput
+            {/* <CustomAnimatedInput
               label={t('post_ad_form.email')}
               name="email"
               value={data.email}
               onChange={e => setData('email', e.target.value)}
               error={errors.email}
+            /> */}
+
+            <CustomInput
+              label={t('post_ad_form.email')}
+              name="email"
+              value={data.email}
+              onChange={(e: any) => setData('email', e.target.value)}
+              error={errors.email}
             />
-            <CustomAnimatedInput
+
+
+
+
+
+
+            {/* <CustomAnimatedInput
               label={`${t('post_ad_form.phone')} *`}
               name="phone"
               value={data.phone}
               onChange={e => setData('phone', e.target.value)}
               error={errors.phone}
+            /> */}
+
+
+
+            <CustomInput
+              label={`${t('post_ad_form.phone')} *`}
+              name="phone"
+              value={data.phone}
+              onChange={(e: any) => setData('phone', e.target.value)}
+              error={errors.phone}
             />
-            <CustomAnimatedInput
+
+
+
+
+
+            {/* <CustomAnimatedInput
               label={t('post_ad_form.price')}
               type='number'
               name="price"
               value={data.price}
               onChange={e => setData('price', e.target.value)}
               error={errors.price}
+            /> */}
+            <CustomInput
+              label={t('post_ad_form.price')}
+              type='number'
+              name="price"
+              value={data.price}
+              onChange={(e: any) => setData('price', e.target.value)}
+              error={errors.price}
+
             />
           </div>
 
-          <CustomAnimatedInput
+          {/* <CustomAnimatedInput
             label={`${t('post_ad_form.ad-title')} *`}
             name="title"
             value={data.title}
             onChange={e => setData('title', e.target.value)}
             error={errors.title}
+          /> */}
+
+          <CustomInput
+            label={`${t('post_ad_form.ad-title')} *`}
+            name="title"
+            value={data.title}
+            onChange={(e: any) => setData('title', e.target.value)}
+            error={errors.title}
           />
-          <textarea
+
+
+
+          {/* <textarea
             name="description"
             placeholder={t('post_ad_form.ad-description')}
             value={data.description}
             onChange={e => setData('description', e.target.value)}
             className="w-full border rounded px-3 py-2 focus:outline-main"
             rows={3}
+          /> */}
+
+          <CustomtextArea
+            label={t('post_ad_form.ad-description')}
+            name="description"
+            value={data.description}
+            onChange={(e: any) => setData('description', e.target.value)}
+            error={errors.description}
           />
 
           <CustomMultiSelect

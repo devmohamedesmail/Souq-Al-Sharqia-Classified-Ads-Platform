@@ -4,12 +4,13 @@ namespace App\Http\Controllers\api;
 
 use App\Models\Ad;
 use App\Models\Place;
+use App\Models\Setting;
 use App\Models\Category;
 use Cloudinary\Cloudinary;
 use App\Models\Subcategory;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Str;
 
 class ApiController extends Controller
 {
@@ -141,6 +142,24 @@ class ApiController extends Controller
                 ->values();
             // return response()->json($place->categories->flatMap->subcategories->flatMap->ads);
             return response()->json($ads);
+        } catch (\Throwable $th) {
+            return response()->json($th);
+        }
+    }
+
+
+    /**
+     * Show settings
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show_settings(){
+        try {
+            $settings =  Setting::first();
+            return response()->json([
+                'data' => $settings,
+                'message' => 'Settings retrieved successfully'
+
+            ], 200);
         } catch (\Throwable $th) {
             return response()->json($th);
         }
