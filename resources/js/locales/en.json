@@ -229,7 +229,12 @@
     "pending": "Pending",
     "approved": "Approved",
     "rejected": "Rejected",
-    
+    "search_by_title_name_email_phone": "Search by Title, Name, Email, Phone",
+    "all": "All ",
+    "clear_filters": "Clear Filters",
+    "no_orders_found": "No orders found",
+    "search_by_name_email_phone": "Search by Name, Email, Phone",
+    "clear_search":" Clear Search",
     "about": {
         "title": "About Us",
         "subtitle": "Learn more about Souq Al-Sharqia, your trusted classified ads platform",

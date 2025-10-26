@@ -4,6 +4,7 @@
 use App\Http\Controllers\admin\AdController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\front\FooterController;
+use App\Http\Controllers\front\UserAdsController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SettingController;
@@ -113,21 +114,26 @@ Route::controller(FrontController::class)->group(function () {
     Route::post('/boost-ad', 'store')->name('boost-ad.store');
     // post ad
     Route::get('/post/new/ads', 'post_new_ads')->name('post.new.ads');
-    Route::post('/post/new/ads', 'store_new_ad')->name('store.new.ads');
+    
     Route::get('/show/ad/details/{slug}/{id}', 'show_ad_details')->name('show.ad.details');
     Route::get('/show/favourites/page', 'show_favourite_page')->name('show.favourites.page');
 
 
     // account
-    Route::get('/account/page/', 'account_page')->name('account.page')->middleware('auth');
-    Route::get('/edit/ad/{slug}/{id}', 'edit_ad')->name('edit.ad')->middleware('auth');
-    Route::post('/edit/ad/confirm/{slug}/{id}', 'edit_ad_confirm')->name('edit.ad.confirm')->middleware('auth');
-    Route::get('/delete/ad/{slug}/{id}', 'delete_ad')->name('delete.ad')->middleware('auth');
+   
 
     // 404 Error Page
     Route::get('/404', 'notFound')->name('404');
 
   
+});
+
+Route::controller(UserAdsController::class)->group(function(){
+    Route::post('/post/new/ads', 'store_new_ad')->name('store.new.ads');
+    Route::get('/account/page/', 'account_page')->name('account.page')->middleware('auth');
+    Route::get('/edit/ad/{slug}/{id}', 'edit_ad')->name('edit.ad')->middleware('auth');
+    Route::post('/edit/ad/confirm/{slug}/{id}', 'edit_ad_confirm')->name('edit.ad.confirm')->middleware('auth');
+    Route::get('/delete/ad/{slug}/{id}', 'delete_ad')->name('delete.ad')->middleware('auth');
 });
 
 

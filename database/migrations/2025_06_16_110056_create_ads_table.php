@@ -29,6 +29,7 @@ return new class extends Migration {
             $table->string('published')->default(false);
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->unsignedBigInteger('views')->default(0);
+            $table->string('reason')->nullable();
         
             $table->timestamps();
         });

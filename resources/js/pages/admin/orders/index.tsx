@@ -2,8 +2,8 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/components/ui/button';
-import { FiEdit, FiTrash2, FiPlus, FiEye } from 'react-icons/fi';
+import {  FiEye, FiSearch } from 'react-icons/fi';
+import { useState } from 'react';
 
 interface User {
     id: number;
@@ -20,6 +20,7 @@ interface Props {
 
 export default function UsersIndex({ orders }: any) {
     const { t } = useTranslation();
+    const [searchTerm, setSearchTerm] = useState('');
     
     const breadcrumbs: BreadcrumbItem[] = [
         {
@@ -32,18 +33,16 @@ export default function UsersIndex({ orders }: any) {
         },
     ];
 
-    const handleDelete = (user: User) => {
-        if (confirm(`${t('confirm_delete_user')} ${user.name}؟`)) {
-            router.delete(`/users/${user.id}`, {
-                onSuccess: () => {
-                    // Success message will be handled by flash messages
-                },
-                onError: () => {
-                    alert(t('error_deleting_user'));
-                }
-            });
-        }
-    };
+    // Filter orders based on search term
+    const filteredOrders = orders.filter((order: any) => {
+        const matchesSearch = searchTerm === '' || 
+            order.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            order.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            order.phone?.toLowerCase().includes(searchTerm.toLowerCase());
+
+        return matchesSearch;
+    });
+
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -63,11 +62,40 @@ export default function UsersIndex({ orders }: any) {
                   
                 </div>
 
+                {/* Search Section */}
+                <div className="bg-white rounded-lg shadow-sm border p-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Search Input */}
+                        <div className="relative">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <FiSearch className="h-5 w-5 text-gray-400" />
+                            </div>
+                            <input
+                                type="text"
+                                placeholder={t('search_by_name_email_phone')}
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 arabic-font"
+                            />
+                        </div>
+
+                        {/* Clear Search Button */}
+                        <div>
+                            <button
+                                onClick={() => setSearchTerm('')}
+                                className="w-full px-4 py-2 bg-main text-white rounded-md hover:bg-second transition-colors arabic-font"
+                            >
+                                {t('clear_search')}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Users Table */}
                 <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
                     <div className="p-6 border-b">
                         <h2 className="text-lg font-semibold text-gray-900 arabic-font">
-                            {t('orders_list')} ({orders.length})
+                            {t('orders_list')} ({filteredOrders.length} {t('of')} {orders.length})
                         </h2>
                     </div>
                     
@@ -102,8 +130,8 @@ export default function UsersIndex({ orders }: any) {
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                                {orders.length > 0 ? (
-                                    orders.map((order:any) => (
+                                {filteredOrders.length > 0 ? (
+                                    filteredOrders.map((order:any) => (
                                         <tr key={order.id} className="hover:bg-gray-50">
                                             <td className="px-6 py-4 whitespace-nowrap text-center">
                                                 <div className="text-sm font-medium text-gray-900 text-center arabic-font">
@@ -173,8 +201,8 @@ export default function UsersIndex({ orders }: any) {
                                     <tr>
                                         <td colSpan={5} className="px-6 py-12 text-center">
                                             <div className="text-gray-500">
-                                                <p className="text-lg font-medium">{t('no_users_found')}</p>
-                                                <p className="text-sm">{t('add_users_to_manage_system')}</p>
+                                                <p className="text-lg font-medium">{t('no_orders_found')}</p>
+                                              
                                             </div>
                                         </td>
                                     </tr>

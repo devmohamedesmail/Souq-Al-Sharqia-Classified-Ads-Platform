@@ -3,7 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-         <link rel="shortcut icon" href="/uploads/043efe83-f748-4510-9424-46fc0350aba0.jpg" type="image/x-icon"> 
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('/assets/images/logo.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/assets/images/logo.png') }}">
+        <link rel="shortcut icon" href="{{ asset('/assets/images/logo.png') }}" type="image/x-icon">
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
         <script>
             (function() {

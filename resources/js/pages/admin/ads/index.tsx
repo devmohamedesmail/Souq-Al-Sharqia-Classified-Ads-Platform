@@ -2,8 +2,8 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/components/ui/button';
-import { FiEdit, FiTrash2, FiPlus, FiEye } from 'react-icons/fi';
+import { FiEdit, FiTrash2, FiPlus, FiEye, FiSearch } from 'react-icons/fi';
+import { useState } from 'react';
 
 interface User {
     id: number;
@@ -20,6 +20,9 @@ interface Props {
 
 export default function AdsPage({ ads }: any) {
     const { t } = useTranslation();
+    const [searchTerm, setSearchTerm] = useState('');
+    const [statusFilter, setStatusFilter] = useState('');
+    const [featuredFilter, setFeaturedFilter] = useState('');
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
@@ -31,6 +34,22 @@ export default function AdsPage({ ads }: any) {
             href: '/users',
         },
     ];
+
+    // Filter ads based on search term and filters
+    const filteredAds = ads.filter((ad: any) => {
+        const matchesSearch = searchTerm === '' ||
+            ad.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            ad.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            ad.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            ad.phone?.toLowerCase().includes(searchTerm.toLowerCase());
+
+        const matchesStatus = statusFilter === '' || ad.status === statusFilter;
+        const matchesFeatured = featuredFilter === '' ||
+            (featuredFilter === 'true' && ad.featured == 1) ||
+            (featuredFilter === 'false' && ad.featured != 1);
+
+        return matchesSearch && matchesStatus && matchesFeatured;
+    });
 
     const handleDelete = (ad: any) => {
         if (confirm(`${t('confirm_delete_ad')} ${ad.title}؟`)) {
@@ -58,11 +77,71 @@ export default function AdsPage({ ads }: any) {
 
                 </div>
 
+                {/* Search and Filter Section */}
+                <div className="bg-white rounded-lg shadow-sm border p-6">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        {/* Search Input */}
+                        <div className="relative">
+                            <div className="absolute mt-2 left-0 pl-3 flex items-center pointer-events-none">
+                                <FiSearch className="h-5 w-5 text-gray-400" />
+                            </div>
+                            <input
+                                type="text"
+                                placeholder={t('search_by_title_name_email_phone')}
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-main focus:border-main arabic-font"
+                            />
+                        </div>
+
+                        {/* Status Filter */}
+                        <div>
+                            <select
+                                value={statusFilter}
+                                onChange={(e) => setStatusFilter(e.target.value)}
+                                className="block w-full px-3 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-main focus:border-main arabic-font"
+                            >
+                                <option value="">{t('all')}</option>
+                                <option value="pending">{t('pending')}</option>
+                                <option value="approved">{t('approved')}</option>
+                                <option value="rejected">{t('rejected')}</option>
+                            </select>
+                        </div>
+
+                        {/* Featured Filter */}
+                        <div>
+                            <select
+                                value={featuredFilter}
+                                onChange={(e) => setFeaturedFilter(e.target.value)}
+                                className="block w-full px-3 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-main focus:border-main arabic-font"
+                            >
+                                <option value="">{t('all')}</option>
+                                <option value="true">{t('featured')}</option>
+                                <option value="false">{t('not_featured')}</option>
+                            </select>
+                        </div>
+
+                        {/* Clear Filters Button */}
+                        <div>
+                            <button
+                                onClick={() => {
+                                    setSearchTerm('');
+                                    setStatusFilter('');
+                                    setFeaturedFilter('');
+                                }}
+                                className="w-full px-4 py-2 bg-main text-white rounded-md hover:bg-main-dark transition-colors arabic-font"
+                            >
+                                {t('clear_filters')}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Users Table */}
                 <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
                     <div className="p-6 border-b">
                         <h2 className="text-lg font-semibold text-gray-900 arabic-font">
-                            {t('ads_list')} ({ads.length})
+                            {t('ads_list')} ({filteredAds.length} {t('of')} {ads.length})
                         </h2>
                     </div>
 
@@ -94,8 +173,8 @@ export default function AdsPage({ ads }: any) {
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                                {ads.length > 0 ? (
-                                    ads.map((ad: any) => (
+                                {filteredAds.length > 0 ? (
+                                    filteredAds.map((ad: any) => (
                                         <tr key={ad.id} className="hover:bg-gray-50">
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <div className="text-sm font-medium text-gray-900 text-center arabic-font">
@@ -167,10 +246,10 @@ export default function AdsPage({ ads }: any) {
                                                     {t('actions')}
                                                 </button>
 
-                                                <ul className="dropdown menu w-52 rounded-box bg-base-100 shadow-sm"
+                                                <ul className="dropdown dropdown-end menu w-52 rounded-box bg-base-100 shadow-sm"
                                                     popover="auto" id="popover-1">
 
-                                                    <li className='py-1 bg-gray-200'>
+                                                    <li className='py-1 bg-gray-100'>
                                                         <Link
                                                             href={`/ads/details/page/${ad.id}`}
                                                             className=""
@@ -181,7 +260,7 @@ export default function AdsPage({ ads }: any) {
                                                     </li>
 
 
-                                                    <li className='py-1 bg-gray-200'>
+                                                    <li className='py-1 bg-gray-100'>
                                                         <Link
                                                             href={`/ads/publish/ad/${ad.id}`}
                                                             className=""
@@ -193,7 +272,7 @@ export default function AdsPage({ ads }: any) {
 
 
 
-                                                    <li className='py-1 bg-gray-200'>
+                                                    <li className='py-1 bg-gray-100'>
                                                         {ad.featured == 1 ? (
                                                             <Link
                                                                 href={`/boost/ad/${ad.id}`}
@@ -213,7 +292,7 @@ export default function AdsPage({ ads }: any) {
                                                         )}
                                                     </li>
 
-                                                    <li className='py-1 bg-gray-200'>
+                                                    <li className='py-1 bg-gray-100'>
                                                         <button
                                                             onClick={() => handleDelete(ad)}
                                                             className=""
@@ -230,8 +309,7 @@ export default function AdsPage({ ads }: any) {
                                     <tr>
                                         <td colSpan={5} className="px-6 py-12 text-center">
                                             <div className="text-gray-500">
-                                                <p className="text-lg font-medium">{t('no_users_found')}</p>
-                                                <p className="text-sm">{t('add_users_to_manage_system')}</p>
+                                                <p className="text-lg font-medium">{t('no_ads_found')}</p>
                                             </div>
                                         </td>
                                     </tr>
