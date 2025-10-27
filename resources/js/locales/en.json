@@ -225,7 +225,7 @@
     "manage_your_website_settings": "Manage your website settings and configuration",
     "general_information": "General Information",
     "website_logo": "Website Logo",
-    "type" : "Type",
+    "type": "Type",
     "pending": "Pending",
     "approved": "Approved",
     "rejected": "Rejected",
@@ -234,7 +234,12 @@
     "clear_filters": "Clear Filters",
     "no_orders_found": "No orders found",
     "search_by_name_email_phone": "Search by Name, Email, Phone",
-    "clear_search":" Clear Search",
+    "clear_search": " Clear Search",
+    "forgot_password": "Forgot Password",
+    "forgot_password_description": "Enter your email address and we will send you a link to reset your password.",
+    "send_password_reset_link": "Send Password Reset Link",
+    "or_return":" Or, return to ",
+    "log_in":" log in ",
     "about": {
         "title": "About Us",
         "subtitle": "Learn more about Souq Al-Sharqia, your trusted classified ads platform",
@@ -251,6 +256,8 @@
         "vision": "Our Vision",
         "vision_content": "To be the first choice for everyone looking to buy or sell anything in the Eastern Province, through innovation and excellent service.",
         "our_values": "Our Values",
+        "our_mission":" Our Mission",
+        "our_vision":" Our Vision",
         "values": [
             "Trust and credibility in all dealings",
             "Customer service excellence",
@@ -258,6 +265,15 @@
             "Supporting the local community",
             "Transparency and honesty"
         ],
+        "stats": {
+            "active_users": "Active Users",
+            "successful_deals": "Successful Deals",
+            "cities_covered": "Cities Covered",
+            "satisfaction_rate": " Satisfaction Rate "
+        },
+        "our_story_content": "From a small local platform to the leading classified ads website in the Eastern Province, our journey has been driven by our commitment to serving the community and providing the best experience for our users.",
+        "our_mission_content": " To connect buyers and sellers through a safe and easy-to-use platform, helping to build a strong local economy and support small businesses.",
+        "our_vision_content": "To be the first choice for everyone looking to buy or sell anything in the Eastern Province, through innovation and excellent service.",
         "team": "Our Team",
         "team_content": "Our team consists of experienced professionals in technology, marketing, and customer service, all working together to provide the best experience for our users.",
         "contact_us": "Contact Us",

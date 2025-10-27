@@ -1,15 +1,16 @@
 <?php
 
 
-use App\Http\Controllers\admin\AdController;
-use App\Http\Controllers\admin\OrderController;
-use App\Http\Controllers\front\FooterController;
-use App\Http\Controllers\front\UserAdsController;
 use Inertia\Inertia;
+use App\Mail\TestMail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\admin\AdController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\PlaceController;
 use App\Http\Controllers\front\FrontController;
+use App\Http\Controllers\front\FooterController;
+use App\Http\Controllers\front\UserAdsController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\UserManagementController;
@@ -130,6 +131,10 @@ Route::controller(UserAdsController::class)->group(function(){
     Route::post('/edit/ad/confirm/{slug}/{id}', 'edit_ad_confirm')->name('edit.ad.confirm')->middleware('auth');
     Route::get('/delete/ad/{slug}/{id}', 'delete_ad')->name('delete.ad')->middleware('auth');
 });
+
+
+
+
 
 
 
