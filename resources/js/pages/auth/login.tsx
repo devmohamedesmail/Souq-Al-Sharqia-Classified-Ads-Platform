@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
 import { useTranslation } from 'react-i18next';
+import { FcGoogle } from "react-icons/fc";
 
 type LoginForm = {
     email: string;
@@ -103,7 +104,17 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                         {t('sign-up')}
                     </TextLink>
                 </div>
+
+
+
             </form>
+           
+
+            <a href="/auth/google/redirect" 
+              className='flex items-center arabic-font justify-center mt-4 border rounded-md py-2 px-4 gap-2 hover:bg-gray-100 transition-colors'>
+                <FcGoogle size={25} />
+                {t('login-with-google')}
+            </a>
 
             {status && <div className="mb-4 text-center text-sm font-medium text-green-600">{status}</div>}
         </AuthLayout>

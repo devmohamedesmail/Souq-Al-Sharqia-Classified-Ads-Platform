@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { FaMapMarkerAlt } from 'react-icons/fa';
 
 function Places_section({ places }: any) {
-    const { t } = useTranslation();
+    const { t , i18n } = useTranslation();
     return (
-        <div className="container m-auto px-5 py-8">
+        <div className="container m-auto px-5 py-8 my-10">
 
             <div className="mb-10 text-center">
                 <h2 className="text-xl md:text-3xl font-extrabold text-main mb-3 drop-shadow flex items-center justify-center gap-2">
@@ -19,21 +19,27 @@ function Places_section({ places }: any) {
             </div>
 
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                 {places && places.map((place: any) => (
                     <Link
                         href={`/place/categories/${place.slug}/${place.id}`}
                         key={place.id}
                         className="
-                            bg-gradient-to-br from-main/10 to-sky-50 shadow-sm rounded-2xl p-6 flex flex-col items-center  h-48 justify-center
+                            bg-gradient-to-br from-main/10 to-sky-50 shadow-sm rounded-2xl p-6 flex  items-center   justify-center
                             transition-all duration-300 ease-in-out
                              hover:shadow-md 
                             cursor-pointer group
                         "
                     >
-                        <FaMapMarkerAlt className="text-main text-3xl mb-2 group-hover:text-yellow-500 transition" />
-                        <p className="text-gray-500 text-base mb-1">{t('see-ads-in')}</p>
-                        <p className="text-main text-2xl font-extrabold group-hover:text-yellow-600 transition">{place.name}</p>
+                       
+                      
+                        <div className='flex items-center justify-between w-full'>
+                             <FaMapMarkerAlt className="text-main text-3xl mb-2 group-hover:text-yellow-500 transition" />
+                           <div className='flex flex-col justify-center items-center'>
+                              <p className="text-gray-500 text-base mb-1">{t('see-ads-in')}</p>
+                              <p className={`text-main text-xl font-medium group-hover:text-yellow-600 transition ${i18n.language === 'ar' ? 'arabic-font' : ''}`}>{place.name}</p>
+                           </div>
+                        </div>
                     </Link>
                 ))}
             </div>

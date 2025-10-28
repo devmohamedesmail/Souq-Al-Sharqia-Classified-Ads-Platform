@@ -1,9 +1,10 @@
 <?php
 
 
+use App\Http\Controllers\front\SocialiteController;
 use Inertia\Inertia;
-use App\Mail\TestMail;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\admin\AdController;
 use App\Http\Controllers\admin\OrderController;
@@ -150,4 +151,31 @@ Route::controller(FooterController::class)->group(function () {
     Route::get('/boost-ad-info', 'boostAdInfo')->name('boost-ad-info');
     Route::get('/advertise-with-us', 'advertiseWithUs')->name('advertise-with-us');
     Route::get('/website-commission', 'websiteCommission')->name('website-commission');
+});
+
+
+
+
+
+
+// -----------------------------------------------------
+ 
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+});
+ 
+Route::get('/auth/callback', function () {
+    $user = Socialite::driver('github')->user();
+ 
+    // $user->token
+});
+
+
+
+Route::controller(SocialiteController::class)->group(function(){
+    Route::get('/auth/google/redirect' , 'google_redirect')->name('auth.google.redirect');
+    Route::get('/auth/google/callback' , 'google_callback')->name('auth.google.callback');
+
+    Route::get('/auth/facebook/redirect' , 'facebook_redirect')->name('auth.facebook.redirect');
+    Route::get('/auth/facebook/callback' , 'facebook_callback')->name('auth.facebook.callback');
 });
