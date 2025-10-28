@@ -87,5 +87,28 @@ class AdController extends Controller
         }
     }
 
+    /**
+     * Summary of reject_ad
+     * @param mixed $id
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Inertia\Response
+     */
+    public function reject_ad($id, Request $request){
+        try {
+            $request->validate([
+                'reason' => 'required|string|max:255'
+            ]);
+
+            $ad = Ad::findOrFail($id);
+            $ad->status = 'rejected'; 
+            $ad->reason = $request->reason;
+            $ad->save();
+            
+            return redirect()->back()->with('success', 'Ad rejected successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Error rejecting ad: ' . $th->getMessage());
+        }
+    }
+
 
 }

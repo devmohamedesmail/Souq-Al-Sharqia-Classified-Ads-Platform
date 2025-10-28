@@ -27,6 +27,8 @@ class Ad extends Model
         'images',
         'featured',
         'published',
+        'status',
+        'reason',
     ];
 
 

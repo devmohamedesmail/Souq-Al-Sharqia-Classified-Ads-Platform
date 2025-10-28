@@ -241,6 +241,11 @@
     "or_return":" Or, return to ",
     "log_in":" log in ",
     "login-with-google":"Login with Google",
+    "reject_ad":"Reject Ad",
+    "reject_ad_message":"Reject Ad with Reason",
+    "enter_reject_reason":"Enter reject reason",
+    "confirm":"Confirm",
+    "processing":"Processing...",
     "about": {
         "title": "About Us",
         "subtitle": "Learn more about Souq Al-Sharqia, your trusted classified ads platform",

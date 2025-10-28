@@ -77,6 +77,7 @@ Route::controller(AdController::class)->group(function(){
     Route::get('/delete/ad/{id}' , 'delete_ad')->name("delete.ad")->middleware("auth");
     Route::get('/boost/ad/{id}' , 'boost_ad')->name("boost.ad")->middleware("auth");
     Route::get('/ads/publish/ad/{id}' , 'publish_ad')->name("publish.ad")->middleware("auth");
+    Route::post('/reject/ad/{id}' , 'reject_ad')->name("reject.ad")->middleware("auth");
 });
 
 

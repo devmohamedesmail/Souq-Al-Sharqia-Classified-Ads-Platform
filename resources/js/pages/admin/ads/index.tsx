@@ -1,9 +1,12 @@
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import { FiEdit, FiTrash2, FiPlus, FiEye, FiSearch } from 'react-icons/fi';
 import { useState } from 'react';
+import { RxCross2 } from "react-icons/rx";
+import { Input } from '@/components/ui/input';
+
 
 interface User {
     id: number;
@@ -23,6 +26,11 @@ export default function AdsPage({ ads }: any) {
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState('');
     const [featuredFilter, setFeaturedFilter] = useState('');
+    const [selectedAd, setSelectedAd] = useState<any>(null);
+    
+    const { data, setData, post, processing, errors, reset } = useForm({
+        reason: ''
+    });
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
@@ -56,6 +64,32 @@ export default function AdsPage({ ads }: any) {
             router.get(`/delete/ad/${ad.id}`, {
 
             });
+        }
+    };
+
+    const handleRejectAd = (ad: any) => {
+        setSelectedAd(ad);
+        setData('reason', '');
+        reset('reason');
+        (document.getElementById('reject_modal') as HTMLDialogElement)?.showModal();
+    };
+
+    const confirmRejectAd = () => {
+        if (selectedAd && data.reason.trim()) {
+            console.log('Rejecting ad:', selectedAd.id, 'with reason:', data.reason);
+            post(`/reject/ad/${selectedAd.id}`, {
+                onSuccess: () => {
+                    console.log('Ad rejected successfully');
+                    (document.getElementById('reject_modal') as HTMLDialogElement)?.close();
+                    setSelectedAd(null);
+                    reset();
+                },
+                onError: (errors) => {
+                    console.log('Error rejecting ad:', errors);
+                }
+            });
+        } else {
+            console.log('Cannot reject ad - missing ad or reason');
         }
     };
 
@@ -152,12 +186,7 @@ export default function AdsPage({ ads }: any) {
                                     <th className="px-6 py-3 text-center arabic-font text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         {t('name')}
                                     </th>
-                                    <th className="px-6 py-3 text-center arabic-font text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        {t('email')}
-                                    </th>
-                                    <th className="px-6 py-3 text-center arabic-font text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        {t('phone')}
-                                    </th>
+
                                     <th className="px-6 py-3 text-center arabic-font text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         {t('title')}
                                     </th>
@@ -181,16 +210,7 @@ export default function AdsPage({ ads }: any) {
                                                     {ad.name}
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-gray-700 text-center arabic-font">
-                                                    {ad.email}
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-gray-700 text-center arabic-font">
-                                                    {ad.phone || '-'}
-                                                </div>
-                                            </td>
+
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <div className="text-sm text-gray-700 text-center arabic-font">
                                                     {ad.title}
@@ -236,18 +256,14 @@ export default function AdsPage({ ads }: any) {
                                             </td>
 
 
-
-
-
-
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
 
-                                                <button className="btn btn-primary" popoverTarget="popover-1">
+                                                <button className="btn btn-primary" popoverTarget={`popover-${ad.id}`}>
                                                     {t('actions')}
                                                 </button>
 
                                                 <ul className="dropdown dropdown-end menu w-52 rounded-box bg-base-100 shadow-sm"
-                                                    popover="auto" id="popover-1">
+                                                    popover="auto" id={`popover-${ad.id}`}>
 
                                                     <li className='py-1 bg-gray-100'>
                                                         <Link
@@ -301,6 +317,17 @@ export default function AdsPage({ ads }: any) {
                                                             {t('delete')}
                                                         </button>
                                                     </li>
+
+
+                                                    <li className='py-1 bg-gray-100'>
+                                                        <button
+                                                            onClick={() => handleRejectAd(ad)}
+                                                            className=""
+                                                        >
+                                                            <RxCross2 className="w-3 h-3" />
+                                                            {t('reject_ad')}
+                                                        </button>
+                                                    </li>
                                                 </ul>
                                             </td>
                                         </tr>
@@ -318,6 +345,40 @@ export default function AdsPage({ ads }: any) {
                         </table>
                     </div>
                 </div>
+
+                {/* Reject Ad Modal */}
+                <dialog id="reject_modal" className="modal">
+                    <div className="modal-box">
+                        <h3 className="font-bold text-lg arabic-font">{t('reject_ad')}</h3>
+                        <p className="py-4 arabic-font">{t('reject_ad_message')}</p>
+                        <Input
+                            value={data.reason}
+                            onChange={(e) => setData('reason', e.target.value)}
+                            placeholder={t('enter_reject_reason')}
+                            className="w-full mb-4"
+                        />
+                        {errors.reason && <p className="text-red-500 text-sm mb-2">{errors.reason}</p>}
+                        <div className="flex gap-2 justify-end mt-10">
+                            <button 
+                                className="btn btn-ghost arabic-font"
+                                onClick={() => (document.getElementById('reject_modal') as HTMLDialogElement)?.close()}
+                                disabled={processing}
+                            >
+                                {t('cancel')}
+                            </button>
+                            <button 
+                                className="btn btn-primary arabic-font"
+                                onClick={confirmRejectAd}
+                                disabled={!data.reason.trim() || processing}
+                            >
+                                {processing ? t('processing') : t('confirm')}
+                            </button>
+                        </div>
+                    </div>
+                    <form method="dialog" className="modal-backdrop">
+                        <button>close</button>
+                    </form>
+                </dialog>
 
             </div>
         </AppLayout>
