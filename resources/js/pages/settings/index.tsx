@@ -2,13 +2,32 @@ import CustomInput from '@/components/custom/CustomInput';
 import Custommodal from '@/components/custom/Custommodal';
 import CustomtextArea from '@/components/custom/CustomtextArea';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { useForm } from '@inertiajs/react'
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+interface SettingsForm {
+    website_name: string;
+    description: string;
+    keywords: string;
+    logo: File | null;
+    phone: string;
+    address: string;
+    email: string;
+    currency_en: string;
+    currency_ar: string;
+    meta_description: string;
+    meta_keywords: string;
+    meta_author: string;
+    maintenance_mode: boolean;
+    about_us: string;
+    copyright: string;
+}
 
 export default function Settings({ settings }: any) {
 
@@ -21,7 +40,10 @@ export default function Settings({ settings }: any) {
         },
     ];
 
-    const { data, setData, post, processing, errors } = useForm({
+
+
+
+    const { data, setData, post, processing, errors } = useForm<any>({
         website_name: settings.website_name || '',
         description: settings.description || '',
         keywords: settings.keywords || '',
@@ -29,11 +51,20 @@ export default function Settings({ settings }: any) {
         phone: settings.phone || '',
         address: settings.address || '',
         email: settings.email || '',
+        currency_en: settings.currency_en || '',
+        currency_ar: settings.currency_ar || '',
+        meta_description: settings.meta_description || '',
+        meta_keywords: settings.meta_keywords || '',
+        meta_author: settings.meta_author || '',
+        maintenance_mode: settings.maintenance_mode || false,
+        about_us: settings.about_us || '',
+        copyright: settings.copyright || '',
     })
 
     const update_settings = (e: any) => {
         e.preventDefault()
         post(route('settings.update'), {
+            forceFormData: true,
             onSuccess: () => {
                 if (modalRef.current) {
                     modalRef.current.showModal();
@@ -43,6 +74,7 @@ export default function Settings({ settings }: any) {
     }
 
 
+   
 
 
     return (
@@ -123,7 +155,110 @@ export default function Settings({ settings }: any) {
                                         value={data.email}
                                         onChange={(e: any) => setData('email', e.target.value)}
                                     />
+                                    <CustomtextArea
+                                        label={t('address')}
+                                        value={data.address}
+                                        onChange={(e: any) => setData('address', e.target.value)}
+                                        placeholder={t('address')}
+                                        error={errors.address || ''}
+                                    />
                                 </div>
+                            </div>
+
+                            {/* Currency Settings Section */}
+                            <div>
+                                <h2 className="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b arabic-font">
+                                    {t('setting.currency_settings')}
+                                </h2>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <CustomInput
+                                        label={t('setting.currency_english')}
+                                        type='text'
+                                        placeholder={t('currency_english')}
+                                        value={data.currency_en}
+                                        onChange={(e: any) => setData('currency_en', e.target.value)}
+                                    />
+                                    <CustomInput
+                                        label={t('setting.currency_arabic')}
+                                        type='text'
+                                        placeholder={t('setting.currency_arabic')}
+                                        value={data.currency_ar}
+                                        onChange={(e: any) => setData('currency_ar', e.target.value)}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* SEO Settings Section */}
+                            <div>
+                                <h2 className="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b arabic-font">
+                                    {t('setting.seo_settings')}
+                                </h2>
+                                <div className="space-y-4">
+                                    <CustomtextArea
+                                        label={t('setting.meta_description')}
+                                        value={data.meta_description}
+                                        onChange={(e: any) => setData('meta_description', e.target.value)}
+                                        placeholder={t('meta_description')}
+                                        error={errors.meta_description || ''}
+                                    />
+                                    <CustomtextArea
+                                        label={t('setting.meta_keywords')}
+                                        value={data.meta_keywords}
+                                        onChange={(e: any) => setData('meta_keywords', e.target.value)}
+                                        placeholder={t('meta_keywords')}
+                                        error={errors.meta_keywords || ''}
+                                    />
+                                    <CustomInput
+                                        label={t('setting.meta_author')}
+                                        type='text'
+                                        placeholder={t('meta_author')}
+                                        value={data.meta_author}
+                                        onChange={(e: any) => setData('meta_author', e.target.value)}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Website Content Section */}
+                            <div>
+                                <h2 className="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b arabic-font">
+                                    {t('setting.website_content')}
+                                </h2>
+                                <div className="space-y-4">
+                                    <CustomtextArea
+                                        label={t('setting.about_us')}
+                                        value={data.about_us}
+                                        onChange={(e: any) => setData('about_us', e.target.value)}
+                                        placeholder={t('about_us')}
+                                        error={errors.about_us || ''}
+                                    />
+                                    <CustomtextArea
+                                        label={t('setting.copyright')}
+                                        value={data.copyright}
+                                        onChange={(e: any) => setData('copyright', e.target.value)}
+                                        placeholder={t('copyright')}
+                                        error={errors.copyright || ''}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* System Settings Section */}
+                            <div>
+                                <h2 className="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b arabic-font">
+                                    {t('setting.system_settings')}
+                                </h2>
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox
+                                        id="maintenance_mode"
+                                        checked={data.maintenance_mode}
+                                        onCheckedChange={(checked) => setData('maintenance_mode', checked)}
+                                    />
+                                    <Label htmlFor="maintenance_mode" className="arabic-font">
+                                        {t('setting.maintenance_mode')}
+                                    </Label>
+                                </div>
+                                <p className="text-sm text-gray-500 mt-2 arabic-font">
+                                    {t('setting.maintenance_mode_description')}
+                                </p>
                             </div>
 
                             {/* Save Button */}
@@ -153,6 +288,9 @@ export default function Settings({ settings }: any) {
                                     onChange={(e: any) => setData('logo', e.target.files[0])}
                                     accept="image/*"
                                 />
+
+                            
+
                                 {settings.logo ? (
                                     <div className="relative">
                                         <img

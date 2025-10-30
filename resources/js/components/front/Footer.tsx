@@ -20,7 +20,7 @@ function Footer() {
                             {app_settings.website_name}
                         </h3>
                         <p className={`text-gray-300 leading-relaxed arabic-font ${i18n.language === 'ar' ? 'text-right' : 'text-left'} `}>
-                            {t('footer.website_description')}
+                            {app_settings.description}
                         </p>
                         <div className={`flex mt-10 space-x-4 ${i18n.language === 'ar' ? 'justify-end' : 'text-left'}`}>
                             <a href="#" className="text-gray-400 hover:text-yellow-400 transition-colors duration-200">
@@ -108,13 +108,13 @@ function Footer() {
                     <div className="space-y-4">
                         <h4 className={`text-md text-white arabic-font mb-4 ${i18n.language === 'ar' ? 'text-right' : 'text-left'} `}>{t('footer.contact_us')}</h4>
                         <div className="space-y-3">
-                            <div 
+                            {/* <div 
                             className={`flex items-center space-x-3 space-x-reverse ${i18n.language === 'ar' ? 'flex-row-reverse' : ''} `}>
                                 <FaPhone className="text-white flex-shrink-0" />
                                 <span className="text-gray-300 mx-2">
                                     {app_settings.phone}
                                 </span>
-                            </div>
+                            </div> */}
                             <div className={`flex items-center space-x-3 space-x-reverse ${i18n.language === 'ar' ? 'flex-row-reverse' : ''} `}>
                                 <FaEnvelope className="text-white flex-shrink-0" />
                                 <span className="text-gray-300 mx-2">

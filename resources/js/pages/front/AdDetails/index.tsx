@@ -13,24 +13,14 @@ function AdDetails({ ad }: any) {
   const [current, setCurrent] = useState(0);
   const { app_settings }: any = usePage().props;
   const { t, i18n } = useTranslation();
-  // Boost form state
-  const [boostForm, setBoostForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-  });
+ 
+ 
 
   // Slider navigation
   const prevImage = () => setCurrent((prev) => (prev === 0 ? ad.images.length - 1 : prev - 1));
   const nextImage = () => setCurrent((prev) => (prev === ad.images.length - 1 ? 0 : prev + 1));
 
-  // Handle boost form submit
-  const handleBoostSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Implement your boost logic here
-    alert('Boost request sent!');
-    setBoostForm({ name: '', email: '', phone: '' });
-  };
+ 
 
 
 
@@ -157,53 +147,8 @@ function AdDetails({ ad }: any) {
           )}
         </div>
 
-        {/* Boost Ad Form */}
-        <div className="bg-gradient-to-r from-main/10 to-sky-100 rounded-xl shadow-lg p-6 mt-8">
-          <h2 className={`text-xl font-bold text-main mb-2 ${i18n.language === 'ar' ? 'text-right arabic-font' :''} `}>{t('boost_form.title')}</h2>
-          <p className={`mb-4 text-gray-600 ${i18n.language === 'ar' ? 'text-right arabic-font' :''}  `}>{t('boost_form.description')}</p>
-         
-          <form onSubmit={handleBoostSubmit} className="space-y-4">
-            <div className="flex flex-col md:flex-row gap-4">
-              <input
-                type="text"
-                placeholder={t('common.name')}
-                value={boostForm.name}
-                onChange={e => setBoostForm({ ...boostForm, name: e.target.value })}
-                required
-                className={`w-full border border-primary text-sm rounded px-3 py-2 focus:outline-main ${i18n.language === 'ar' ? 'text-right arabic-font' :''} `}
-              />
-              <input
-                type="email"
-                placeholder={t('common.email')}
-                value={boostForm.email}
-                onChange={e => setBoostForm({ ...boostForm, email: e.target.value })}
-                required
-                className={`w-full border border-primary text-sm rounded px-3 py-2 focus:outline-main ${i18n.language === 'ar' ? 'text-right arabic-font' :''} `}
-              />
-              <input
-                type="text"
-                placeholder={t('common.phone')}
-                value={boostForm.phone}
-                onChange={e => setBoostForm({ ...boostForm, phone: e.target.value })}
-                required
-               className={`w-full border border-primary text-sm rounded px-3 py-2 focus:outline-main ${i18n.language === 'ar' ? 'text-right arabic-font' :''} `}
-              />
-            </div>
-            <input
-              type="text"
-              value={window.location.href}
-              readOnly
-              className="w-full border border-primary rounded px-3 py-2 bg-gray-100 text-gray-500"
-              title="Ad Link"
-            />
-            <button
-              type="submit"
-              className="w-full bg-main text-white py-2 rounded font-semibold hover:bg-main/90 transition arabic-font"
-            >
-              {t('boost_form.boost_now')}
-            </button>
-          </form>
-        </div>
+        
+      
       </div>
       <Footer />
       <BottomNavbar />

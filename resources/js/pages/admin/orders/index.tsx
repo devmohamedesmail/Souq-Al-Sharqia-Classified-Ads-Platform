@@ -46,7 +46,7 @@ export default function UsersIndex({ orders }: any) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title={t('users')} />
+            <Head title={t('orders')} />
             <div className="flex h-full flex-1 flex-col gap-6 rounded-xl p-6">
                 
                 {/* Header */}

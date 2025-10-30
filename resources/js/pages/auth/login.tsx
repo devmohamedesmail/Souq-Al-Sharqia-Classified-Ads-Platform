@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
 import { useTranslation } from 'react-i18next';
 import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
 
 type LoginForm = {
     email: string;
@@ -110,11 +111,28 @@ export default function Login({ status, canResetPassword }: LoginProps) {
             </form>
            
 
-            <a href="/auth/google/redirect" 
-              className='flex items-center arabic-font justify-center mt-4 border rounded-md py-2 px-4 gap-2 hover:bg-gray-100 transition-colors'>
-                <FcGoogle size={25} />
-                {t('login-with-google')}
-            </a>
+            <div className="mt-6 space-y-3">
+                <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                        <span className="w-full border-t border-gray-200" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-white px-2 text-gray-500 arabic-font">{t('or-continue-with')}</span>
+                    </div>
+                </div>
+
+                <a href="/auth/google/redirect" 
+                  className='flex items-center arabic-font justify-center w-full border-2 border-gray-200 rounded-lg py-3 px-4 gap-3 hover:border-gray-300 hover:bg-gray-50 transition-all duration-200 shadow-sm hover:shadow-md group'>
+                    <FcGoogle size={24} className="group-hover:scale-105 transition-transform duration-200" />
+                    <span className="font-medium text-gray-700">{t('login-with-google')}</span>
+                </a>
+
+                <a href="/auth/facebook/redirect" 
+                  className='flex items-center arabic-font justify-center w-full border-2 border-blue-200 bg-blue-600 hover:bg-blue-700 rounded-lg py-3 px-4 gap-3 transition-all duration-200 shadow-sm hover:shadow-md group'>
+                    <FaFacebook size={24} className="text-white group-hover:scale-105 transition-transform duration-200" />
+                    <span className="font-medium text-white">{t('login-with-facebook')}</span>
+                </a>
+            </div>
 
             {status && <div className="mb-4 text-center text-sm font-medium text-green-600">{status}</div>}
         </AuthLayout>

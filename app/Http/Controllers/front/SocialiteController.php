@@ -15,7 +15,7 @@ class SocialiteController extends Controller
      */
     public function google_redirect()
     {
-       
+
         return Socialite::driver('google')->redirect();
     }
 
@@ -32,6 +32,7 @@ class SocialiteController extends Controller
             $user->update([
                 'provider_id' => $googleUser->id,
                 'provider_token' => $googleUser->token,
+                'provider_name' => 'google',
                 'provider_refresh_token' => $googleUser->refreshToken,
             ]);
         } else {
@@ -40,6 +41,7 @@ class SocialiteController extends Controller
                 'email' => $googleUser->email,
                 'provider_id' => $googleUser->id,
                 'provider_token' => $googleUser->token,
+                'provider_name' => 'google',
                 'provider_refresh_token' => $googleUser->refreshToken,
             ]);
         }
@@ -62,7 +64,7 @@ class SocialiteController extends Controller
      */
     public function facebook_callback()
     {
-       
+
         $facebookUser = Socialite::driver('facebook')->user();
 
         $user = User::where('email', $facebookUser->email)->first();
@@ -70,6 +72,7 @@ class SocialiteController extends Controller
             $user->update([
                 'provider_id' => $facebookUser->id,
                 'provider_token' => $facebookUser->token,
+                'provider_name' => 'facebook',
                 'provider_refresh_token' => $facebookUser->refreshToken,
             ]);
         } else {
@@ -77,6 +80,7 @@ class SocialiteController extends Controller
                 'name' => $facebookUser->name,
                 'email' => $facebookUser->email,
                 'provider_id' => $facebookUser->id,
+                'provider_name' => 'facebook',
                 'provider_token' => $facebookUser->token,
                 'provider_refresh_token' => $facebookUser->refreshToken,
             ]);

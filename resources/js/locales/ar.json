@@ -246,6 +246,8 @@
   "enter_reject_reason": "أدخل سبب الرفض",
   "confirm": "تأكيد",
   "processing": "جاري المعالجة...",
+  "or-continue-with":"أو تابع مع",
+  "login-with-facebook":"تسجيل الدخول باستخدام فيسبوك",
   "boost_ad": {
     "title": "ميز إعلانك",
     "subtitle": "اجعل إعلانك يتصدر النتائج ويحصل على أكبر عدد مشاهدات",
@@ -1005,5 +1007,21 @@
     "publish": "نشر الإعلان",
     "ad-published-successfully": "تم نشر الإعلان بنجاح!",
     "remove": "إزالة"
-  }
+  },
+   "setting":{
+        "currency_settings": "إعدادات العملة",
+        "currency_english": "العملة بالإنجليزية",
+        "currency_arabic": "العملة بالعربية",
+        "meta_description": "وصف ميتا",
+        "meta_keywords": "كلمات ميتا",
+        "meta_author": "مؤلف ميتا",
+        "website_content": "محتوى الموقع",
+        "about_us": "معلومات عنا",
+        "copyright_text": "نص حقوق الطبع والنشر",
+        "system_settings": "إعدادات النظام",
+        "maintenance_mode": "وضع الصيانة",
+        "seo_settings": "إعدادات تحسين محركات البحث",
+        "copyright":"حقوق الطبع والنشر",
+        "maintenance_mode_description": "قم بتمكين وضع الصيانة لتعطيل الموقع مؤقتًا للتحديثات أو الصيانة."
+    }
 }

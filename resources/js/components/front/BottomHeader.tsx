@@ -45,10 +45,10 @@ function BottomHeader() {
                     {t('add_without_account')}
                 </Link>
 
-                <Link href="/boost/ads" className="bg-second px-2 py-2 rounded-md mx-1 text-white  shadow-sm my-1 text-center">
+                {/* <Link href="/boost/ads" className="bg-second px-2 py-2 rounded-md mx-1 text-white  shadow-sm my-1 text-center">
 
                     {t('boost')}
-                </Link>
+                </Link> */}
 
 
 

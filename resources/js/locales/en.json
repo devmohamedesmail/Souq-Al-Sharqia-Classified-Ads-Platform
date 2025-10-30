@@ -246,6 +246,8 @@
     "enter_reject_reason":"Enter reject reason",
     "confirm":"Confirm",
     "processing":"Processing...",
+    "or-continue-with":"Or continue with",
+    "login-with-facebook":"Login with Facebook",
     "about": {
         "title": "About Us",
         "subtitle": "Learn more about Souq Al-Sharqia, your trusted classified ads platform",
@@ -836,5 +838,22 @@
         "mobile_story": "In response to your repeated requests, we developed an easy-to-use mobile app",
         "live_chat": "Live Chat",
         "chat_story": "We added a live chat system between buyers and sellers to facilitate communication"
+    },
+    "setting":{
+        "currency_settings": "Currency Settings",
+        "currency_english": "Currency in English",  
+        "currency_arabic": "Currency in Arabic",
+        "meta_description": "Meta Description",
+        "meta_keywords": "Meta Keywords",
+        "meta_author": "Meta Author",
+        "website_content": "Website Content",
+        "about_us": "About Us",
+        "copyright_text": "Copyright Text",
+        "system_settings": "System Settings",
+        "maintenance_mode": "Maintenance Mode",
+        "seo_settings": "SEO Settings",
+        "copyright":"copyright",
+        "maintenance_mode_description": "Enable maintenance mode to temporarily disable the website for updates or maintenance."
     }
+    
 }
