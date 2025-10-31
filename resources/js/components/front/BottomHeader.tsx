@@ -18,7 +18,7 @@ function BottomHeader() {
         <div className="bg-[#074799] container m-auto flex flex-col md:flex-row items-center justify-between py-2 px-2">
 
             <div className="w-full my-3 md:my-0 flex justify-start">
-                <form onSubmit={handleSubmit} className="w-full md:w-1/3">
+                <form onSubmit={handleSubmit} className="w-full md:50 ">
                     <div className="flex items-center gap-0 flex-row-reverse">
                         <input
                             type="search"
@@ -45,19 +45,8 @@ function BottomHeader() {
                     {t('add_without_account')}
                 </Link>
 
-                {/* <Link href="/boost/ads" className="bg-second px-2 py-2 rounded-md mx-1 text-white  shadow-sm my-1 text-center">
-
-                    {t('boost')}
-                </Link> */}
-
-
-
+            
             </div>
-
-
-
-
-
         </div>
     )
 }

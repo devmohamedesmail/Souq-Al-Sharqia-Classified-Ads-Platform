@@ -15,7 +15,8 @@
     "place-added-successfully": "Place added successfully",
     "place-details": "Place Details",
     "update_place_information": "Update place information",
-    "place-name": "Place Name",
+    "place-name-en": "Place Name (English)",
+    "place-name-ar": "Place Name (Arabic)",
     "places": "Places",
     "dashboard": "Dashboard",
     "category-details": "Category Details",
@@ -853,7 +854,11 @@
         "maintenance_mode": "Maintenance Mode",
         "seo_settings": "SEO Settings",
         "copyright":"copyright",
-        "maintenance_mode_description": "Enable maintenance mode to temporarily disable the website for updates or maintenance."
+        "maintenance_mode_description": "Enable maintenance mode to temporarily disable the website for updates or maintenance.",
+        "website_name_en": "Website Name (English)",
+        "website_name_ar": "Website Name (Arabic)",
+        "description_en": "Description (English)",
+        "description_ar": "Description (Arabic)"
     }
     
 }

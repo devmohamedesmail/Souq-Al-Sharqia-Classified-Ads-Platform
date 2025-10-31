@@ -10,10 +10,13 @@ import { Head } from '@inertiajs/react';
 import { useForm } from '@inertiajs/react'
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
 
 interface SettingsForm {
-    website_name: string;
-    description: string;
+    website_name_en: string;
+    website_name_ar: string;
+    description_en: string;
+    description_ar: string;
     keywords: string;
     logo: string | File | null;
     phone: string;
@@ -24,7 +27,7 @@ interface SettingsForm {
     meta_description: string;
     meta_keywords: string;
     meta_author: string;
-    maintenance_mode: boolean;
+    maintenance_mode: boolean ;
     about_us: string;
     copyright: string;
 }
@@ -40,12 +43,14 @@ export default function Settings({ settings }: any) {
         },
     ];
 
-
+   
 
 
     const { data, setData, post, processing, errors } = useForm<SettingsForm>({
-        website_name: settings.website_name || '',
-        description: settings.description || '',
+        website_name_en: settings.website_name_en || '',
+        website_name_ar: settings.website_name_ar || '',
+        description_en: settings.description_en || '',
+        description_ar: settings.description_ar || '',
         keywords: settings.keywords || '',
         logo: '',
         phone: settings.phone || '',
@@ -56,7 +61,7 @@ export default function Settings({ settings }: any) {
         meta_description: settings.meta_description || '',
         meta_keywords: settings.meta_keywords || '',
         meta_author: settings.meta_author || '',
-        maintenance_mode: settings.maintenance_mode || false,
+        maintenance_mode: settings.maintenance_mode || false ,
         about_us: settings.about_us || '',
         copyright: settings.copyright || '',
     })
@@ -74,7 +79,7 @@ export default function Settings({ settings }: any) {
     }
 
 
-   
+
 
 
     return (
@@ -111,20 +116,36 @@ export default function Settings({ settings }: any) {
                                 </h2>
                                 <div className="space-y-4">
                                     <CustomInput
-                                        label={t('website-name')}
+                                        label={t('setting.website_name_en')}
                                         type='text'
-                                        placeholder={t('website-name')}
-                                        value={data.website_name}
-                                        onChange={(e: any) => setData('website_name', e.target.value)}
+                                        placeholder={t('setting.website_name_en')}
+                                        value={data.website_name_en}
+                                        onChange={(e: any) => setData('website_name_en', e.target.value)}
+                                    />
+                                    <CustomInput
+                                        label={t('setting.website_name_ar')}
+                                        type='text'
+                                        placeholder={t('setting.website_name_ar')}
+                                        value={data.website_name_ar}
+                                        onChange={(e: any) => setData('website_name_ar', e.target.value)}
                                     />
                                     <CustomtextArea
-                                        label={t('description')}
-                                        value={data.description}
-                                        onChange={(e: any) => setData('description', e.target.value)}
-                                        placeholder={t('description')}
-                                        error={errors.description as string || ''}
-                                    // error={typeof errors.description === 'string' ? errors.description : ''}
+                                        label={t('setting.description_en')}
+                                        value={data.description_en}
+                                        onChange={(e: any) => setData('description_en', e.target.value)}
+                                        placeholder={t('setting.description_en')}
+                                        error={errors.description_en as string || ''}
                                     />
+                                    <CustomtextArea
+                                        label={t('setting.description_ar')}
+                                        value={data.description_ar}
+                                        onChange={(e: any) => setData('description_ar', e.target.value)}
+                                        placeholder={t('setting.description_ar')}
+                                        error={errors.description_ar as string || ''}
+                                    />
+
+
+
                                     <CustomtextArea
                                         label={t('keywords')}
                                         value={data.keywords}
@@ -250,7 +271,7 @@ export default function Settings({ settings }: any) {
                                     <Checkbox
                                         id="maintenance_mode"
                                         checked={data.maintenance_mode}
-                                        onCheckedChange={(checked) => setData('maintenance_mode', checked)}
+                                        onCheckedChange={(checked) => setData('maintenance_mode', checked === true)}
                                     />
                                     <Label htmlFor="maintenance_mode" className="arabic-font">
                                         {t('setting.maintenance_mode')}
@@ -289,7 +310,7 @@ export default function Settings({ settings }: any) {
                                     accept="image/*"
                                 />
 
-                            
+
 
                                 {settings.logo ? (
                                     <div className="relative">

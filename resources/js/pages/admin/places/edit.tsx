@@ -28,7 +28,8 @@ function EditPlace({ place }: any) {
     ];
 
     const { data, setData, post, processing, errors } = useForm({
-        name: place.name || '',
+        name_en: place.name_en || '',
+        name_ar: place.name_ar || '',
         slug: place.slug || '',
         description: place.description || '',
         address: place.address || '',
@@ -46,10 +47,10 @@ function EditPlace({ place }: any) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title={`${t('edit_place')}: ${place.name}`} />
+            <Head title={`${t('edit_place')}: ${place.name_ar}`} />
             
             <div className="min-h-screen bg-gray-50/50">
-                <div className="container mx-auto p-6 max-w-4xl">
+                <div className="container mx-auto p-6 ">
                     {/* Header Section */}
                     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
                         <div className="flex items-center justify-between">
@@ -97,30 +98,60 @@ function EditPlace({ place }: any) {
                                     {/* Place Name */}
                                     <div className="space-y-2">
                                         <Label htmlFor="name" className="text-sm font-medium text-gray-700">
-                                            {t('place-name')} <span className="text-red-500">*</span>
+                                            {t('place-name-ar')} <span className="text-red-500">*</span>
                                         </Label>
                                         <Input
                                             id="name"
                                             type="text"
-                                            value={data.name}
+                                            value={data.name_ar}
                                             onChange={(e: any) => {
                                                 const nameValue = e.target.value;
                                                 setData({
                                                     ...data,
-                                                    name: nameValue,
+                                                    name_ar: nameValue,
                                                     slug: nameValue.trim().toLowerCase().replace(/\s+/g, '-'),
                                                 });
                                             }}
-                                            className={`transition-colors ${errors.name ? 'border-red-500 focus:border-red-500' : 'focus:border-blue-500'}`}
+                                            className={`transition-colors ${errors.name_ar ? 'border-red-500 focus:border-red-500' : 'focus:border-blue-500'}`}
                                             placeholder={t('enter_place_name')}
                                         />
-                                        {errors.name && (
+                                        {errors.name_ar && (
                                             <p className="text-sm text-red-600 flex items-center gap-1">
                                                 <X className="w-3 h-3" />
-                                                {errors.name}
+                                                {errors.name_ar}
                                             </p>
                                         )}
                                     </div>
+
+
+
+                                    <div className="space-y-2">
+                                        <Label htmlFor="name" className="text-sm font-medium text-gray-700">
+                                            {t('place-name-en')} <span className="text-red-500">*</span>
+                                        </Label>
+                                        <Input
+                                            id="name"
+                                            type="text"
+                                            value={data.name_en}
+                                            onChange={(e: any) => {
+                                                const nameValue = e.target.value;
+                                                setData({
+                                                    ...data,
+                                                    name_en: nameValue,
+                                                    // slug: nameValue.trim().toLowerCase().replace(/\s+/g, '-'),
+                                                });
+                                            }}
+                                            className={`transition-colors ${errors.name_en ? 'border-red-500 focus:border-red-500' : 'focus:border-blue-500'}`}
+                                            placeholder={t('enter_place_name')}
+                                        />
+                                        {errors.name_en && (
+                                            <p className="text-sm text-red-600 flex items-center gap-1">
+                                                <X className="w-3 h-3" />
+                                                {errors.name_en}
+                                            </p>
+                                        )}
+                                    </div>
+
 
                                     {/* Slug */}
                                     <div className="space-y-2">

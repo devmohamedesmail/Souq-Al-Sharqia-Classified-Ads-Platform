@@ -26,7 +26,8 @@ function Places() {
     ];
 
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
+        name_ar: '',
+        name_en: '',
         slug: '',
         description: '',
         address: '',
@@ -88,24 +89,47 @@ function Places() {
                             <form onSubmit={submit} className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label htmlFor="name">{t('place-name')} *</Label>
+                                        <Label htmlFor="name">{t('place-name-ar')} *</Label>
                                         <Input
                                             id="name"
                                             type="text"
-                                            value={data.name}
+                                            value={data.name_ar}
                                             onChange={(e: any) => {
                                                 const nameValue = e.target.value;
                                                 setData({
                                                     ...data,
-                                                    name: nameValue,
+                                                    name_ar: nameValue,
                                                     slug: nameValue.trim().toLowerCase().replace(/\s+/g, '-'),
                                                 });
                                             }}
-                                            className={errors.name ? 'border-red-500' : ''}
+                                            className={errors.name_ar ? 'border-red-500' : ''}
                                             placeholder={t('enter_place_name')}
                                         />
-                                        {errors.name && (
-                                            <p className="text-sm text-red-600">{errors.name}</p>
+                                        {errors.name_ar && (
+                                            <p className="text-sm text-red-600">{errors.name_ar}</p>
+                                        )}
+                                    </div>
+
+
+                                    <div className="space-y-2">
+                                        <Label htmlFor="name">{t('place-name-en')} *</Label>
+                                        <Input
+                                            id="name"
+                                            type="text"
+                                            value={data.name_en}
+                                            onChange={(e: any) => {
+                                                const nameValue = e.target.value;
+                                                setData({
+                                                    ...data,
+                                                    name_en: nameValue,
+                                                    // slug: nameValue.trim().toLowerCase().replace(/\s+/g, '-'),
+                                                });
+                                            }}
+                                            className={errors.name_en ? 'border-red-500' : ''}
+                                            placeholder={t('enter_place_name')}
+                                        />
+                                        {errors.name_en && (
+                                            <p className="text-sm text-red-600">{errors.name_en}</p>
                                         )}
                                     </div>
 
@@ -184,7 +208,10 @@ function Places() {
                                 <thead className="bg-gray-50">
                                     <tr>
                                         <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider arabic-font ">
-                                            {t('name')}
+                                            {t('name-ar')}
+                                        </th>
+                                        <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider arabic-font ">
+                                            {t('name-en')}
                                         </th>
                                         <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider arabic-font">
                                             {t('slug')}
@@ -206,7 +233,12 @@ function Places() {
                                             <tr key={place.id} className="hover:bg-gray-50">
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <div className="text-sm font-medium text-gray-900 arabic-font text-center">
-                                                        {place.name}
+                                                        {place.name_ar}
+                                                    </div>
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <div className="text-sm font-medium text-gray-900 arabic-font text-center">
+                                                        {place.name_en}
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">

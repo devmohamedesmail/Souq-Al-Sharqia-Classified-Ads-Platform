@@ -11,7 +11,8 @@ class Place extends Model
     /** @use HasFactory<\Database\Factories\PlaceFactory> */
     use HasFactory;
      protected $fillable = [
-        'name',
+        'name_en',
+        'name_ar',
         'slug',
         'description',
         'address',

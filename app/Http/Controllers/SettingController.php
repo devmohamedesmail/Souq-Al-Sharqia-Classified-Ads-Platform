@@ -27,11 +27,14 @@ class SettingController extends Controller
    public function settings_update(Request $request)
 {
     try {
+        dd($request->all());
         $settings = Setting::firstOrNew();
 
         $settings->fill([
-            'website_name'       => $request->input('website_name'),
-            'description'        => $request->input('description'),
+            'website_name_en'       => $request->input('website_name_en'),
+            'website_name_ar'       => $request->input('website_name_ar'),
+            'description_en'        => $request->input('description_en'),
+            'description_ar'        => $request->input('description_ar'),
             'keywords'           => $request->input('keywords'),
             'phone'              => $request->input('phone'),
             'email'              => $request->input('email'),

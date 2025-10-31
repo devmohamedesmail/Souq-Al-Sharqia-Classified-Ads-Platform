@@ -8,12 +8,14 @@ import { Link } from '@inertiajs/react'
 import AdItemHorzintal from '@/components/items/AdItemHorzintal'
 import { useTranslation } from 'react-i18next'
 
+
 function FilterAds({ place, category, subcategory, ads }: any) {
-  const { t } = useTranslation();
+  const { t , i18n } = useTranslation();
   return (
     <div className="min-h-screen bg-gray-50">
       <TopHeader />
       <MiddleHeader />
+   
       <div className="drawer">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
@@ -47,7 +49,8 @@ function FilterAds({ place, category, subcategory, ads }: any) {
             <div className="bg-gradient-to-br from-main/10 to-sky-100 rounded-2xl shadow-xl p-0 mb-6 sticky top-8 overflow-hidden border border-main/10">
               <div className="bg-gradient-to-r from-main to-sky-400 py-5 px-4 text-center">
                 <h2 className="text-white font-extrabold text-xl tracking-wide drop-shadow">
-                  {category ? (category.title_ar || category.title_en) : "التصنيفات الفرعية"}
+                  {/* {category ? (category.title_ar || category.title_en) : "التصنيفات الفرعية"} */}
+                  {i18n.language === 'ar' ? (category.title_ar) : (category.title_en)} 
                 </h2>
               </div>
               <ul className="space-y-1 py-4 px-2">
@@ -59,7 +62,7 @@ function FilterAds({ place, category, subcategory, ads }: any) {
             transition-all duration-200 border border-transparent hover:border-main
           `}
                   >
-                    الكل
+                     {t('all')}
                   </button>
                 </li>
                 {category.subcategories.map((sub: any) => (
@@ -82,7 +85,10 @@ function FilterAds({ place, category, subcategory, ads }: any) {
                       {sub.image && (
                         <img src={sub.image} alt={sub.title_ar} className="w-8 h-8 rounded-full border-2 border-sky-200 shadow" />
                       )}
-                      <span className="flex-1">{sub.title_ar || sub.title_en}</span>
+                      
+                      <span className="flex-1">
+                        {i18n.language === 'ar' ? sub.title_ar : sub.title_en}
+                      </span>
                       <span className="text-xs bg-main/10 text-main px-2 py-0.5 rounded-full font-bold">
                         {sub.ads?.length ?? 0}
                       </span>
@@ -130,7 +136,8 @@ function FilterAds({ place, category, subcategory, ads }: any) {
           <div className="bg-gradient-to-br from-main/10 to-sky-100 rounded-2xl shadow-xl p-0 mb-6 sticky top-8 overflow-hidden border border-main/10">
             <div className="bg-gradient-to-r from-main to-sky-400 py-5 px-4 text-center">
               <h2 className="text-white font-extrabold text-xl tracking-wide drop-shadow">
-                {category ? (category.title_ar || category.title_en) : "التصنيفات الفرعية"}
+                {/* {category ? (category.title_ar || category.title_en) : "التصنيفات الفرعية"} */}
+              {i18n.language === 'ar' ? (category.title_ar) : (category.title_en)} 
               </h2>
             </div>
             <ul className="space-y-1 py-4 px-2">
@@ -142,7 +149,8 @@ function FilterAds({ place, category, subcategory, ads }: any) {
             transition-all duration-200 border border-transparent hover:border-main
           `}
                 >
-                  الكل
+  
+                  {t('all')}
                 </button>
               </li>
               {category.subcategories.map((sub: any) => (
@@ -165,7 +173,9 @@ function FilterAds({ place, category, subcategory, ads }: any) {
                     {sub.image && (
                       <img src={sub.image} alt={sub.title_ar} className="w-8 h-8 rounded-full border-2 border-sky-200 shadow" />
                     )}
-                    <span className="flex-1">{sub.title_ar || sub.title_en}</span>
+                    <span className="flex-1">
+                      {i18n.language === 'ar' ? sub.title_ar : sub.title_en}
+                    </span>
                     <span className="text-xs bg-main/10 text-main px-2 py-0.5 rounded-full font-bold">
                       {sub.ads?.length ?? 0}
                     </span>

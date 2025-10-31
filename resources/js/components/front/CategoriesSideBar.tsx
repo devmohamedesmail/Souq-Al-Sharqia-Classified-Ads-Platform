@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 import { FaChevronDown, FaChevronLeft, FaChevronRight, FaMapMarkerAlt } from 'react-icons/fa'
 import { Link } from '@inertiajs/react'
 import { useTranslation } from 'react-i18next';
+import i18n from '@/i18n';
 
 
 
@@ -32,7 +33,7 @@ function CategoriesSideBar({ categories, ads }: any) {
   return (
     <aside className="md:w-1/4 w-full order-2 md:order-1">
       <div className="bg-white rounded-2xl shadow p-4 sticky top-8">
-        <h2 className="text-main font-bold text-lg mb-4 text-center">التصنيفات</h2>
+        <h2 className="text-main font-bold text-lg mb-4 text-center"> {t('categories')}</h2>
         <ul className="space-y-2">
           {categories.map((cat: any, idx: number) => (
             <li key={cat.id}>
@@ -44,7 +45,8 @@ function CategoriesSideBar({ categories, ads }: any) {
                   {cat.image && (
                     <img src={cat.image} alt={cat.title_ar} className="w-7 h-7 rounded-full border" />
                   )}
-                  {cat.title_ar}
+                  
+                  {i18n.language === 'ar' ? cat.title_ar : cat.title_en}
                 </span>
                 <FaChevronDown className={`transition-transform ${openCategory === cat.id ? 'rotate-180' : ''}`} />
               </button>
@@ -59,7 +61,7 @@ function CategoriesSideBar({ categories, ads }: any) {
                         {sub.image && (
                           <img src={sub.image} alt={sub.title_ar} className="w-5 h-5 rounded-full border" />
                         )}
-                        {sub.title_ar}
+                        {sub.title_ar} 
                         <span className="ml-2 bg-yellow-100 text-yellow-700 rounded-full px-2 py-0.5 text-xs font-bold">
                           {getAdsForSubcategory(sub.id).length}
                         </span>

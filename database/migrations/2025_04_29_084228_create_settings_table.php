@@ -12,8 +12,10 @@ return new class extends Migration {
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->longText('website_name')->nullable();
-            $table->longText('description')->nullable();
+            $table->longText('website_name_en')->nullable();
+            $table->longText('website_name_ar')->nullable();
+            $table->longText('description_en')->nullable();
+            $table->longText('description_ar')->nullable();
             $table->longText('keywords')->nullable();
             $table->longText('favicon')->nullable();
             $table->longText('phone')->nullable();

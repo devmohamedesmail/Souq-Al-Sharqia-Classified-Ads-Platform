@@ -11,18 +11,18 @@ function Footer() {
     return (
         <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
             {/* Main Footer Content */}
-            <div className="container mx-auto px-4 py-12">
+            <div className="container mx-auto px-4 py-16">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
                     {/* Website Info */}
                     <div className="space-y-4">
                         <h3 className={`text-xl arabic-font font-bold text-white mb-4 ${i18n.language === 'ar' ? 'text-right' : 'text-left'} `}>
-                            {app_settings.website_name}
+                            {i18n.language === 'ar' ? app_settings.website_name_ar : app_settings.website_name_en}
                         </h3>
                         <p className={`text-gray-300 leading-relaxed arabic-font ${i18n.language === 'ar' ? 'text-right' : 'text-left'} `}>
-                            {app_settings.description}
+                            {i18n.language === 'ar' ? app_settings.description_ar : app_settings.description_en}
                         </p>
-                        <div className={`flex mt-10 space-x-4 ${i18n.language === 'ar' ? 'justify-end' : 'text-left'}`}>
+                        {/* <div className={`flex mt-10 space-x-4 ${i18n.language === 'ar' ? 'justify-end' : 'text-left'}`}>
                             <a href="#" className="text-gray-400 hover:text-yellow-400 transition-colors duration-200">
                                 <FaFacebook size={24} />
                             </a>
@@ -32,7 +32,7 @@ function Footer() {
                             <a href="#" className="text-gray-400 hover:text-yellow-400 transition-colors duration-200">
                                 <FaInstagram size={24} />
                             </a>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* Quick Links */}
@@ -108,13 +108,6 @@ function Footer() {
                     <div className="space-y-4">
                         <h4 className={`text-md text-white arabic-font mb-4 ${i18n.language === 'ar' ? 'text-right' : 'text-left'} `}>{t('footer.contact_us')}</h4>
                         <div className="space-y-3">
-                            {/* <div 
-                            className={`flex items-center space-x-3 space-x-reverse ${i18n.language === 'ar' ? 'flex-row-reverse' : ''} `}>
-                                <FaPhone className="text-white flex-shrink-0" />
-                                <span className="text-gray-300 mx-2">
-                                    {app_settings.phone}
-                                </span>
-                            </div> */}
                             <div className={`flex items-center space-x-3 space-x-reverse ${i18n.language === 'ar' ? 'flex-row-reverse' : ''} `}>
                                 <FaEnvelope className="text-white flex-shrink-0" />
                                 <span className="text-gray-300 mx-2">
@@ -131,7 +124,7 @@ function Footer() {
             </div>
 
             {/* Bottom Footer */}
-            <div className="border-t border-gray-700">
+            <div className="border-t border-gray-700 py-10">
                 <div className="container mx-auto px-4 py-6">
                     <div className="flex flex-col md:flex-row justify-between items-center">
                         <p className="text-gray-400 text-sm mb-4 md:mb-0">

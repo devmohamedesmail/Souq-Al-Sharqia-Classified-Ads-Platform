@@ -24,7 +24,8 @@ class PlaceController extends Controller
         try {
 
             $validated = $request->validate([
-                'name' => 'nullable|string|max:255',
+                'name_en' => 'nullable|string|max:255',
+                'name_ar' => 'nullable|string|max:255',
                 'slug' => 'required|string|max:255|unique:places,slug',
                 'description' => 'nullable|string',
                 'address' => 'nullable|string|max:255',
@@ -54,6 +55,7 @@ class PlaceController extends Controller
     public function place_edit_confirm(Request $request, $id)
     {
         try {
+            
             $place = Place::findOrFail($id);
             $place->update($request->all());
             return redirect()->back()->with('success', __('Place updated successfully'));

@@ -37,7 +37,9 @@ function Places_section({ places }: any) {
                              <FaMapMarkerAlt className="text-main text-3xl mb-2 group-hover:text-yellow-500 transition" />
                            <div className='flex flex-col justify-center items-center'>
                               <p className="text-gray-500 text-base mb-1">{t('see-ads-in')}</p>
-                              <p className={`text-main text-xl font-medium group-hover:text-yellow-600 transition ${i18n.language === 'ar' ? 'arabic-font' : ''}`}>{place.name}</p>
+                              <p className={`text-main text-xl  group-hover:text-yellow-600 transition font-bold ${i18n.language === 'ar' ? 'arabic-font' : ''}`}>
+                                {i18n.language === 'ar' ? place.name_ar : place.name_en}
+                            </p>
                            </div>
                         </div>
                     </Link>
