@@ -14,11 +14,11 @@ function LangSwitcher() {
 
         <button
             onClick={toggleLanguage}
-            className="inline-flex items-center gap-2 bg-main text-white font-bold px-4 py-2 rounded-full shadow-md hover:scale-105 transition-all duration-200 text-sm focus:outline-none focus:ring-2 focus:ring-main focus:ring-offset-2"
+            className="inline-flex items-center gap-2 bg-main text-white font-bold px-4 py-2 rounded-full shadow-md hover:scale-105 transition-all duration-200 text-xs focus:outline-none focus:ring-2 focus:ring-main focus:ring-offset-2"
         >
-            <span className="text-lg">
+            {/* <span className="text-lg">
                 {i18next.language === 'en' ? '🇸🇦' : '🇬🇧'}
-            </span>
+            </span> */}
             {i18next.language === 'en' ? 'العربية' : 'English'}
         </button>
     )

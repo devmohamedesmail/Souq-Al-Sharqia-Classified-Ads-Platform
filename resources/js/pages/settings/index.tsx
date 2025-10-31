@@ -15,7 +15,7 @@ interface SettingsForm {
     website_name: string;
     description: string;
     keywords: string;
-    logo: File | null;
+    logo: string | File | null;
     phone: string;
     address: string;
     email: string;
@@ -43,7 +43,7 @@ export default function Settings({ settings }: any) {
 
 
 
-    const { data, setData, post, processing, errors } = useForm<any>({
+    const { data, setData, post, processing, errors } = useForm<SettingsForm>({
         website_name: settings.website_name || '',
         description: settings.description || '',
         keywords: settings.keywords || '',
